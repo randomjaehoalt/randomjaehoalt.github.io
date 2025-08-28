@@ -188,12 +188,22 @@
             animation: mythicGlow 1.5s ease-in-out infinite alternate;
         }
 
-        .transcendent { 
+        .divine { 
+            background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff);
+            background-size: 400% 400%;
+            border: 4px solid;
+            border-image: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff) 1;
+            color: #ffffff;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+            animation: divineRainbow 2s ease-in-out infinite, divineGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        .ultimate-jaeho { 
             background-color: #0066ff; 
             border-color: #0066ff;
             color: #0066ff;
             box-shadow: 0 0 60px rgba(0, 102, 255, 1);
-            animation: transcendentGlow 1s ease-in-out infinite alternate;
+            animation: ultimateJaehoGlow 1s ease-in-out infinite alternate;
         }
 
         @keyframes legendaryGlow {
@@ -218,7 +228,24 @@
             }
         }
 
-        @keyframes transcendentGlow {
+        @keyframes divineRainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes divineGlow {
+            0% { 
+                box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+                filter: brightness(1);
+            }
+            100% { 
+                box-shadow: 0 0 80px rgba(255, 255, 255, 1);
+                filter: brightness(1.4);
+            }
+        }
+
+        @keyframes ultimateJaehoGlow {
             0% { 
                 box-shadow: 0 0 60px rgba(0, 102, 255, 1);
                 filter: brightness(1);
@@ -324,8 +351,12 @@
 
         .grade-info.mythic {
             background: linear-gradient(45deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.15));
-            border: 2px solid rgba(231, 76, 60, 0.4);
+            border: 3px solid rgba(231, 76, 60, 0.6);
+            border-radius: 15px;
             animation: mythicFlicker 1.5s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.4);
         }
 
         .grade-info.mythic::before {
@@ -340,60 +371,204 @@
             pointer-events: none;
         }
 
-        .grade-info.mythic .grade-color {
-            animation: mythicPulse 1.5s ease-in-out infinite;
-            box-shadow: 0 0 25px rgba(231, 76, 60, 1);
-        }
-
-        .grade-info.transcendent {
-            background: linear-gradient(45deg, rgba(0, 102, 255, 0.25), rgba(0, 61, 153, 0.2));
-            border: 2px solid rgba(0, 102, 255, 0.5);
-            animation: transcendentWave 1s ease-in-out infinite;
-            position: relative;
-        }
-
-        .grade-info.transcendent::before {
-            content: '';
+        .grade-info.mythic::after {
+            content: '🔥';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #0066ff, #00aaff, #0066ff, #003d99);
-            background-size: 300% 300%;
-            border-radius: 12px;
-            z-index: -1;
-            animation: transcendentBorder 2s ease-in-out infinite;
-        }
-
-        .grade-info.transcendent::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            animation: transcendentScan 3s ease-in-out infinite;
+            font-size: 1.3em;
+            animation: mythicFlame 1.8s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(231, 76, 60, 0.8);
             pointer-events: none;
         }
 
-        .grade-info.transcendent .grade-color {
-            animation: transcendentSpin 1s linear infinite;
-            box-shadow: 0 0 30px rgba(0, 102, 255, 1);
+        .grade-info.mythic .grade-color {
+            animation: mythicPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 25px rgba(231, 76, 60, 1);
             position: relative;
         }
 
-        .grade-info.transcendent .grade-color::before {
+        .grade-info.mythic .grade-color::before {
             content: '';
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            animation: transcendentHalo 2s ease-in-out infinite;
+            border: 2px solid rgba(231, 76, 60, 0.6);
+            animation: mythicRing 2s ease-in-out infinite;
+        }
+
+        .grade-info.mythic .grade-color::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #ff6b6b 0%, #e74c3c 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: mythicCore 1.2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+        }
+
+        .grade-info.divine {
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(255, 136, 0, 0.1), rgba(255, 255, 0, 0.1), rgba(0, 255, 0, 0.1), rgba(0, 136, 255, 0.1), rgba(0, 0, 255, 0.1), rgba(136, 0, 255, 0.1));
+            background-size: 400% 400%;
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff) 1;
+            border-radius: 10px;
+            animation: divineWave 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+        }
+
+        .grade-info.divine::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff);
+            background-size: 400% 400%;
+            border-radius: 10px;
+            z-index: -1;
+            animation: divineRainbow 2s ease-in-out infinite;
+        }
+
+        .grade-info.divine::after {
+            content: '✦';
+            position: absolute;
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.9);
+            animation: divineStar 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+            pointer-events: none;
+        }
+
+        .grade-info.divine .grade-color {
+            background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff);
+            background-size: 400% 400%;
+            animation: divineRainbow 2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .grade-info.divine .grade-color::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            animation: divineHalo 2.5s ease-in-out infinite;
+        }
+
+        .grade-info.divine .grade-color::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 
+                0 0 0 4px rgba(255, 255, 255, 0.3),
+                0 0 0 8px rgba(255, 255, 255, 0.1);
+            animation: divineCore 1.5s ease-in-out infinite;
+        }
+
+        .grade-info.ultimate-jaeho {
+            background: linear-gradient(45deg, rgba(0, 102, 255, 0.25), rgba(0, 61, 153, 0.2));
+            border: 4px solid;
+            border-image: linear-gradient(45deg, #0066ff, #00aaff, #ffffff, #00aaff, #0066ff) 1;
+            border-radius: 20px;
+            animation: ultimateJaehoWave 1s ease-in-out infinite;
+            position: relative;
+            color: white;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(0, 102, 255, 0.6),
+                inset 0 0 20px rgba(0, 102, 255, 0.1);
+        }
+
+        .grade-info.ultimate-jaeho::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, #0066ff, #00aaff, #ffffff, #66ccff, #0066ff);
+            background-size: 400% 400%;
+            border-radius: 20px;
+            z-index: -1;
+            animation: ultimateJaehoBorder 2s ease-in-out infinite;
+        }
+
+        .grade-info.ultimate-jaeho::after {
+            content: '⚡';
+            position: absolute;
+            font-size: 1.4em;
+            color: rgba(255, 255, 255, 0.9);
+            animation: ultimateJaehoLightning 1.5s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .grade-info.ultimate-jaeho .grade-color {
+            animation: ultimateJaehoSpin 1s linear infinite;
+            box-shadow: 0 0 40px rgba(0, 102, 255, 1);
+            position: relative;
+            background: radial-gradient(circle, #66ccff 0%, #0066ff 100%);
+        }
+
+        .grade-info.ultimate-jaeho .grade-color::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            right: -6px;
+            bottom: -6px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            animation: ultimateJaehoHalo 2s ease-in-out infinite;
+        }
+
+        .grade-info.ultimate-jaeho .grade-color::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #ffffff 0%, #66ccff 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: ultimateJaehoCore 0.8s ease-in-out infinite;
+            box-shadow: 
+                0 0 0 2px rgba(255, 255, 255, 0.6),
+                0 0 0 4px rgba(102, 204, 255, 0.4),
+                0 0 0 6px rgba(0, 102, 255, 0.2);
+        }
+
+        /* 추가 장식 요소들 */
+        .grade-info.ultimate-jaeho {
+            position: relative;
+        }
+
+        .grade-info.ultimate-jaeho:hover {
+            transform: scale(1.02);
+            box-shadow: 
+                0 0 50px rgba(0, 102, 255, 0.8),
+                inset 0 0 30px rgba(0, 102, 255, 0.2);
         }
 
         @keyframes legendaryPulse {
@@ -455,7 +630,113 @@
             }
         }
 
-        @keyframes transcendentWave {
+        @keyframes divineStar {
+            0% { 
+                opacity: 0;
+                top: 20%;
+                left: 15%;
+                transform: scale(0.5);
+            }
+            5% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            15% { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            25% { 
+                opacity: 0;
+                top: 70%;
+                left: 80%;
+                transform: scale(0.5);
+            }
+            30% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            40% { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% { 
+                opacity: 0;
+                top: 40%;
+                left: 60%;
+                transform: scale(0.5);
+            }
+            55% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            65% { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            75% { 
+                opacity: 0;
+                top: 80%;
+                left: 25%;
+                transform: scale(0.5);
+            }
+            80% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            90% { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% { 
+                opacity: 0;
+                top: 20%;
+                left: 15%;
+                transform: scale(0.5);
+            }
+        }
+
+        @keyframes divineWave {
+            0% { 
+                background-position: 0% 50%;
+                transform: scale(1);
+            }
+            50% { 
+                background-position: 100% 50%;
+                transform: scale(1.01);
+            }
+            100% { 
+                background-position: 0% 50%;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes divineHalo {
+            0%, 100% { 
+                opacity: 0.6;
+                transform: scale(1) rotate(0deg);
+            }
+            33% { 
+                opacity: 0.9;
+                transform: scale(1.1) rotate(120deg);
+            }
+            66% { 
+                opacity: 0.7;
+                transform: scale(0.95) rotate(240deg);
+            }
+        }
+
+        @keyframes divineCore {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+
+        @keyframes ultimateJaehoWave {
             0%, 100% { 
                 transform: scale(1);
             }
@@ -467,7 +748,7 @@
             }
         }
 
-        @keyframes transcendentBorder {
+        @keyframes ultimateJaehoBorder {
             0% { 
                 background-position: 0% 50%;
                 box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
@@ -482,27 +763,119 @@
             }
         }
 
-        @keyframes transcendentScan {
+        @keyframes mythicFlame {
             0% { 
-                top: 0%; 
-                opacity: 0; 
+                opacity: 0;
+                top: 15%;
+                right: 20%;
+                transform: scale(0.8) rotate(0deg);
+            }
+            25% { 
+                opacity: 1;
+                transform: scale(1.1) rotate(15deg);
             }
             50% { 
-                top: 50%; 
-                opacity: 1; 
+                opacity: 0;
+                top: 75%;
+                right: 70%;
+                transform: scale(0.9) rotate(-10deg);
+            }
+            75% { 
+                opacity: 1;
+                transform: scale(1.2) rotate(25deg);
             }
             100% { 
-                top: 100%; 
-                opacity: 0; 
+                opacity: 0;
+                top: 15%;
+                right: 20%;
+                transform: scale(0.8) rotate(0deg);
             }
         }
 
-        @keyframes transcendentSpin {
+        @keyframes mythicRing {
+            0%, 100% { 
+                opacity: 0.4;
+                transform: scale(1) rotate(0deg);
+                border-color: rgba(231, 76, 60, 0.6);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: scale(1.1) rotate(180deg);
+                border-color: rgba(255, 107, 107, 0.9);
+            }
+        }
+
+        @keyframes mythicCore {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.3);
+                box-shadow: 0 0 20px rgba(255, 107, 107, 1);
+            }
+        }
+
+        @keyframes ultimateJaehoLightning {
+            0% { 
+                opacity: 0;
+                top: 10%;
+                left: 20%;
+                transform: scale(0.7) rotate(-15deg);
+            }
+            15% { 
+                opacity: 1;
+                transform: scale(1.3) rotate(10deg);
+            }
+            30% { 
+                opacity: 0;
+                transform: scale(0.8) rotate(-5deg);
+            }
+            45% { 
+                opacity: 0;
+                top: 70%;
+                left: 75%;
+                transform: scale(0.7) rotate(20deg);
+            }
+            60% { 
+                opacity: 1;
+                transform: scale(1.4) rotate(-15deg);
+            }
+            75% { 
+                opacity: 0;
+                transform: scale(0.8) rotate(5deg);
+            }
+            100% { 
+                opacity: 0;
+                top: 10%;
+                left: 20%;
+                transform: scale(0.7) rotate(-15deg);
+            }
+        }
+
+        @keyframes ultimateJaehoCore {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 
+                    0 0 0 2px rgba(255, 255, 255, 0.6),
+                    0 0 0 4px rgba(102, 204, 255, 0.4),
+                    0 0 0 6px rgba(0, 102, 255, 0.2);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.5);
+                box-shadow: 
+                    0 0 0 3px rgba(255, 255, 255, 0.9),
+                    0 0 0 6px rgba(102, 204, 255, 0.7),
+                    0 0 0 9px rgba(0, 102, 255, 0.5);
+            }
+        }
+
+        @keyframes ultimateJaehoSpin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        @keyframes transcendentHalo {
+        @keyframes ultimateJaehoHalo {
             0%, 100% { 
                 opacity: 0.3;
                 transform: scale(1);
@@ -592,10 +965,17 @@
 
         <div class="probability-info">
             <h3>📊 등급별 확률</h3>
-            <div class="grade-info transcendent">
+            <div class="grade-info ultimate-jaeho">
                 <div style="display: flex; align-items: center;">
-                    <div class="grade-color transcendent"></div>
+                    <div class="grade-color ultimate-jaeho"></div>
                     <span>얼티밋 재호 (Ultimate Jaeho)</span>
+                </div>
+                <span>0.01%</span>
+            </div>
+            <div class="grade-info divine">
+                <div style="display: flex; align-items: center;">
+                    <div class="grade-color divine"></div>
+                    <span>신성 (Divine)</span>
                 </div>
                 <span>0.1%</span>
             </div>
@@ -625,7 +1005,7 @@
                     <div class="grade-color rare"></div>
                     <span>레어 (Rare)</span>
                 </div>
-                <span>10%</span>
+                <span>12%</span>
             </div>
             <div class="grade-info">
                 <div style="display: flex; align-items: center;">
@@ -639,7 +1019,7 @@
                     <div class="grade-color common"></div>
                     <span>커먼 (Common)</span>
                 </div>
-                <span>43.9%</span>
+                <span>43.89%</span>
             </div>
         </div>
 
@@ -649,8 +1029,12 @@
                 <div>총 뽑기</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" id="transcendentCount">0</div>
+                <div class="stat-number" id="ultimateJaehoCount">0</div>
                 <div>얼티밋 재호</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="divineCount">0</div>
+                <div>신성</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="mythicCount">0</div>
@@ -675,53 +1059,60 @@
 
     <script>
         const grades = {
-            transcendent: {
+            'ultimate-jaeho': {
                 name: "얼티밋 재호",
-                probability: 0.1,
+                probability: 0.01,
                 color: "#0066ff",
-                images: []
+                images: ["ultimate-jaeho1.jpg", "ultimate-jaeho2.png"]
+            },
+            divine: {
+                name: "신성",
+                probability: 0.1,
+                color: "linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff)",
+                images: ["divine1.jpg", "divine2.png"]
             },
             mythic: {
                 name: "신화",
                 probability: 1,
                 color: "#e74c3c",
-                images: ["mythic1.jpg"]
+                images: ["mythic1.jpg", "mythic2.png"]
             },
             legendary: {
                 name: "레전더리",
                 probability: 3,
                 color: "#ffd700",
-                images: ["legendary1.jpg"]
+                images: ["legendary1.jpg", "legendary2.png"]
             },
             epic: {
                 name: "에픽",
                 probability: 7,
                 color: "#9b59b6",
-                images: ["epic1.jpg", "epic2.png"]
+                images: ["epic1.mp4", "epic2.png"]
             },
             rare: {
                 name: "레어",
-                probability: 10,
+                probability: 12,
                 color: "#3498db",
-                images: ["rare1.jpg"]
+                images: ["rare1.jpg", "rare2.png"]
             },
             uncommon: {
                 name: "언커먼",
                 probability: 35,
                 color: "#2ecc71",
-                images: ["uncommon1.jpg", "uncommon2.jpg", "uncommon3.jpg"]
+                images: ["uncommon1.jpg", "uncommon2.png"]
             },
             common: {
                 name: "커먼",
-                probability: 43.9,
+                probability: 43.89,
                 color: "#95a5a6",
-                images: ["common1.jpg", "common2.jpg"]
+                images: ["common1.jpg", "common2.png"]
             }
         };
 
         let stats = {
             total: 0,
-            transcendent: 0,
+            'ultimate-jaeho': 0,
+            divine: 0,
             mythic: 0,
             legendary: 0,
             epic: 0,
@@ -755,11 +1146,26 @@
             canvas.height = 180;
             const ctx = canvas.getContext('2d');
             
-            ctx.fillStyle = color;
+            // Handle gradient colors for divine
+            if (color.includes('gradient')) {
+                // Create a simple rainbow effect for fallback
+                const gradient = ctx.createLinearGradient(0, 0, 180, 180);
+                gradient.addColorStop(0, '#ff0000');
+                gradient.addColorStop(0.16, '#ff8800');
+                gradient.addColorStop(0.33, '#ffff00');
+                gradient.addColorStop(0.5, '#00ff00');
+                gradient.addColorStop(0.66, '#0088ff');
+                gradient.addColorStop(0.83, '#0000ff');
+                gradient.addColorStop(1, '#8800ff');
+                ctx.fillStyle = gradient;
+            } else {
+                ctx.fillStyle = color;
+            }
+            
             ctx.fillRect(0, 0, 180, 180);
             
             ctx.fillStyle = 'white';
-            ctx.font = 'bold 20px Arial';
+            ctx.font = 'bold 16px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(text, 90, 90);
             
@@ -790,55 +1196,84 @@
             const screenFlash = document.getElementById('screenFlash');
 
             switch(gradeKey) {
-                case 'transcendent':
+                case 'ultimate-jaeho':
                     screenFlash.style.background = 'radial-gradient(circle, rgba(0, 102, 255, 0.8) 0%, transparent 70%)';
                     screenFlash.style.opacity = '1';
+                    screenFlash.style.transition = 'none';
                     document.body.style.background = 'linear-gradient(135deg, #0066ff 0%, #003d99 100%)';
-                    createFireworks(30, ['#0066ff', '#00aaff', '#ffffff']);
+                    document.body.style.transition = 'none';
+                    createFireworks(50, ['#0066ff', '#00aaff', '#ffffff']);
                     
                     setTimeout(() => {
+                        screenFlash.style.transition = 'opacity 2s ease-out';
+                        document.body.style.transition = 'background 2s ease-out';
                         document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                         screenFlash.style.opacity = '0';
-                    }, 5000);
+                    }, 6000);
+                    break;
+
+                case 'divine':
+                    screenFlash.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, transparent 70%)';
+                    screenFlash.style.opacity = '1';
+                    screenFlash.style.transition = 'none';
+                    document.body.style.background = 'linear-gradient(135deg, #ff0000 0%, #ff8800 20%, #ffff00 40%, #00ff00 60%, #0088ff 80%, #8800ff 100%)';
+                    document.body.style.transition = 'none';
+                    createFireworks(40, ['#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#0000ff', '#8800ff']);
+                    
+                    setTimeout(() => {
+                        screenFlash.style.transition = 'opacity 1.8s ease-out';
+                        document.body.style.transition = 'background 1.8s ease-out';
+                        document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                        screenFlash.style.opacity = '0';
+                    }, 5500);
                     break;
 
                 case 'mythic':
                     screenFlash.style.background = 'radial-gradient(circle, rgba(231, 76, 60, 0.6) 0%, transparent 70%)';
                     screenFlash.style.opacity = '1';
+                    screenFlash.style.transition = 'none';
                     document.body.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
-                    createFireworks(20, ['#e74c3c', '#ff6b6b', '#ffffff']);
+                    document.body.style.transition = 'none';
+                    createFireworks(25, ['#e74c3c', '#ff6b6b', '#ffffff']);
                     
                     setTimeout(() => {
+                        screenFlash.style.transition = 'opacity 1.5s ease-out';
+                        document.body.style.transition = 'background 1.5s ease-out';
                         document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                         screenFlash.style.opacity = '0';
-                    }, 4000);
+                    }, 4500);
                     break;
 
                 case 'legendary':
                     screenFlash.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%)';
                     screenFlash.style.opacity = '1';
+                    screenFlash.style.transition = 'none';
                     document.body.style.background = 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)';
-                    createFireworks(15, ['#ffd700', '#ffed4e', '#ffffff']);
+                    document.body.style.transition = 'none';
+                    createFireworks(20, ['#ffd700', '#ffed4e', '#ffffff']);
                     
                     setTimeout(() => {
+                        screenFlash.style.transition = 'opacity 1.2s ease-out';
+                        document.body.style.transition = 'background 1.2s ease-out';
                         document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                         screenFlash.style.opacity = '0';
-                    }, 3000);
+                    }, 3500);
                     break;
 
                 case 'epic':
-                    createFireworks(8, ['#9b59b6', '#8e44ad', '#ffffff']);
+                    createFireworks(12, ['#9b59b6', '#8e44ad', '#ffffff']);
                     break;
 
                 case 'rare':
-                   createFireworks(5, ['#3498db', '#2980b9']);
+                   createFireworks(8, ['#3498db', '#2980b9']);
                    break;
            }
        }
 
        function updateStatsDisplay() {
            document.getElementById('totalSpins').textContent = stats.total;
-           document.getElementById('transcendentCount').textContent = stats.transcendent;
+           document.getElementById('ultimateJaehoCount').textContent = stats['ultimate-jaeho'];
+           document.getElementById('divineCount').textContent = stats.divine;
            document.getElementById('mythicCount').textContent = stats.mythic;
            document.getElementById('legendaryCount').textContent = stats.legendary;
            document.getElementById('epicCount').textContent = stats.epic;
@@ -874,7 +1309,17 @@
                };
 
                resultText.textContent = `${grade.name} 등급!`;
-               resultText.style.color = grade.color;
+               if (grade.color.includes('gradient')) {
+                   resultText.style.background = grade.color;
+                   resultText.style.backgroundClip = 'text';
+                   resultText.style.webkitBackgroundClip = 'text';
+                   resultText.style.webkitTextFillColor = 'transparent';
+                   resultText.style.color = 'transparent';
+               } else {
+                   resultText.style.color = grade.color;
+                   resultText.style.background = 'none';
+                   resultText.style.webkitTextFillColor = 'initial';
+               }
                
                resultGrade.textContent = grade.name;
                resultGrade.className = `result-grade ${resultGradeKey}`;
@@ -895,7 +1340,8 @@
        function resetGame() {
            stats = {
                total: 0,
-               transcendent: 0,
+               'ultimate-jaeho': 0,
+               divine: 0,
                mythic: 0,
                legendary: 0,
                epic: 0,
@@ -909,7 +1355,4 @@
        }
    </script>
 </body>
-
 </html>
-
-
