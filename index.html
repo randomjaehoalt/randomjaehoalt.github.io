@@ -415,8 +415,7 @@
         .grade-info.divine {
             background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(255, 136, 0, 0.1), rgba(255, 255, 0, 0.1), rgba(0, 255, 0, 0.1), rgba(0, 136, 255, 0.1), rgba(0, 0, 255, 0.1), rgba(136, 0, 255, 0.1));
             background-size: 400% 400%;
-            border: 3px solid;
-            border-image: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff) 1;
+            border: none;
             border-radius: 10px;
             animation: divineWave 2s ease-in-out infinite;
             position: relative;
@@ -427,10 +426,10 @@
         .grade-info.divine::before {
             content: '';
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #00ff00, #0088ff, #0000ff, #8800ff);
             background-size: 400% 400%;
             border-radius: 10px;
@@ -486,8 +485,7 @@
 
         .grade-info.ultimate-jaeho {
             background: linear-gradient(45deg, rgba(0, 102, 255, 0.25), rgba(0, 61, 153, 0.2));
-            border: 4px solid;
-            border-image: linear-gradient(45deg, #0066ff, #00aaff, #ffffff, #00aaff, #0066ff) 1;
+            border: none;
             border-radius: 20px;
             animation: ultimateJaehoWave 1s ease-in-out infinite;
             position: relative;
@@ -501,10 +499,10 @@
         .grade-info.ultimate-jaeho::before {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(45deg, #0066ff, #00aaff, #ffffff, #66ccff, #0066ff);
             background-size: 400% 400%;
             border-radius: 20px;
