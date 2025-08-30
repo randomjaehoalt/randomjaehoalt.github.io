@@ -940,6 +940,8 @@
     </style>
 </head>
 <body>
+    <audio id="bgMusic" src="bgm.mp3" loop></audio>
+    
     <div class="screen-flash" id="screenFlash"></div>
 
     <div class="game-container" id="gameContainer">
@@ -1312,29 +1314,13 @@
        }
 
        function pullGacha() {
-           // 배경음악 재생 함수
-function playBGM() {
-    const bgm = document.getElementById('bgMusic');
-    if (bgm.paused) {
-        bgm.volume = 0.5; // 음량 (0 ~ 1)
-        bgm.play().catch(err => {
-            console.log("자동 재생 차단됨:", err);
-        });
-    }
-}
-
-// pullGacha 실행할 때 음악 시작되도록
-function pullGacha() {
-    playBGM();  // 버튼 클릭 시 배경음악 시작
-}
-
            const gachaBox = document.getElementById('gachaBox');
            const pullButton = document.getElementById('pullButton');
            const resultContainer = document.getElementById('resultContainer');
            const resultImage = document.getElementById('resultImage');
            const resultText = document.getElementById('resultText');
            const resultGrade = document.getElementById('resultGrade');
-
+           document.getElementById("bgMusic").play();
            pullButton.disabled = true;
            pullButton.textContent = '🎲 뽑는 중...';
            resultContainer.classList.remove('show');
@@ -1497,5 +1483,3 @@ function pullGacha() {
    </script>
 </body>
 </html>
-
-
