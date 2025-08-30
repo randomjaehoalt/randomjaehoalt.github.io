@@ -959,6 +959,7 @@
         <div style="text-align: center; margin-bottom: 20px;">
             <button class="pull-button" id="pullButton" onclick="pullGacha()">🎲 가챠 뽑기</button>
             <button class="reset-button" onclick="resetGame()">🔄 초기화</button>
+            <button class="reset-button" onclick="copyShareURL()" style="background: linear-gradient(45deg, #3498db, #2980b9);">📋 저장 링크 복사</button>
         </div>
 
         <div class="probability-info">
@@ -987,7 +988,7 @@
             <div class="grade-info legendary">
                 <div style="display: flex; align-items: center;">
                     <div class="grade-color legendary"></div>
-                    <span>레전더리 (Legendary)</span>
+                    <span>레전드리 (Legendary)</span>
                 </div>
                 <span>3%</span>
             </div>
@@ -1040,7 +1041,7 @@
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="legendaryCount">0</div>
-                <div>레전더리</div>
+                <div>레전드리</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="epicCount">0</div>
@@ -1076,7 +1077,7 @@
                 images: ["mythic1.jpg", "mythic2.jpg", "mythic3.jpg"]
             },
             legendary: {
-                name: "레전더리",
+                name: "레전드리",
                 probability: 3,
                 color: "#ffd700",
                 images: ["legendary1.jpg", "legendary2.jpg"]
@@ -1118,6 +1119,38 @@
             uncommon: 0,
             common: 0
         };
+
+        // URL에서 통계 데이터 로드
+        function loadStatsFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const statsData = urlParams.get('stats');
+            
+            if (statsData) {
+                try {
+                    const decodedStats = JSON.parse(atob(statsData));
+                    stats = { ...stats, ...decodedStats };
+                    updateStatsDisplay();
+                } catch (e) {
+                    console.log('통계 데이터 로드 실패');
+                }
+            }
+        }
+
+        // URL에 통계 데이터 저장
+        function saveStatsToURL() {
+            const encodedStats = btoa(JSON.stringify(stats));
+            const newURL = new URL(window.location);
+            newURL.searchParams.set('stats', encodedStats);
+            window.history.replaceState({}, '', newURL);
+        }
+
+        // 공유 가능한 URL 생성
+        function generateShareableURL() {
+            const encodedStats = btoa(JSON.stringify(stats));
+            const shareURL = new URL(window.location);
+            shareURL.searchParams.set('stats', encodedStats);
+            return shareURL.toString();
+        }
 
         function getRandomGrade() {
             const random = Math.random() * 100;
@@ -1298,6 +1331,7 @@
 
                stats.total++;
                stats[resultGradeKey]++;
+               saveStatsToURL(); // 통계 업데이트 후 URL에 저장
 
                resultImage.src = imagePath;
                resultImage.className = `result-image ${resultGradeKey}`;
@@ -1336,23 +1370,114 @@
        }
 
        function resetGame() {
-           stats = {
-               total: 0,
-               'ultimate-jaeho': 0,
-               divine: 0,
-               mythic: 0,
-               legendary: 0,
-               epic: 0,
-               rare: 0,
-               uncommon: 0,
-               common: 0
-           };
-           
-           document.getElementById('resultContainer').classList.remove('show');
-           updateStatsDisplay();
+           if (confirm('정말로 모든 통계를 초기화하시겠습니까?')) {
+               stats = {
+                   total: 0,
+                   'ultimate-jaeho': 0,
+                   divine: 0,
+                   mythic: 0,
+                   legendary: 0,
+                   epic: 0,
+                   rare: 0,
+                   uncommon: 0,
+                   common: 0
+               };
+               
+               document.getElementById('resultContainer').classList.remove('show');
+               updateStatsDisplay();
+               saveStatsToURL();
+           }
        }
+
+       function copyShareURL() {
+           const shareURL = generateShareableURL();
+           
+           // 클립보드 API 시도
+           if (navigator.clipboard && navigator.clipboard.writeText) {
+               navigator.clipboard.writeText(shareURL).then(() => {
+                   showCopyMessage('✅ 복사됨!', '#2ecc71');
+               }).catch(() => {
+                   showURLModal(shareURL);
+               });
+           } else {
+               // 클립보드 API가 지원되지 않으면 모달로 표시
+               showURLModal(shareURL);
+           }
+       }
+       
+       function showCopyMessage(message, color) {
+           const button = event.target;
+           const originalText = button.textContent;
+           const originalBackground = button.style.background;
+           
+           button.textContent = message;
+           button.style.background = `linear-gradient(45deg, ${color}, ${color})`;
+           
+           setTimeout(() => {
+               button.textContent = originalText;
+               button.style.background = originalBackground;
+           }, 2000);
+       }
+       
+       function showURLModal(url) {
+           // URL 표시용 모달 생성
+           const modal = document.createElement('div');
+           modal.style.cssText = `
+               position: fixed;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
+               background: rgba(0, 0, 0, 0.8);
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               z-index: 10000;
+           `;
+           
+           const modalContent = document.createElement('div');
+           modalContent.style.cssText = `
+               background: white;
+               color: black;
+               padding: 30px;
+               border-radius: 15px;
+               max-width: 90%;
+               text-align: center;
+               box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+           `;
+           
+           modalContent.innerHTML = `
+               <h3 style="margin-bottom: 20px; color: #333;">공유 URL</h3>
+               <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; word-break: break-all; font-family: monospace; font-size: 12px; border: 1px solid #ddd;">
+                   ${url}
+               </div>
+               <p style="margin-bottom: 20px; color: #666;">위 링크를 복사하여 저장된 랜덤재호를 즐기세요!</p>
+               <button onclick="this.parentElement.parentElement.remove()" style="
+                   background: linear-gradient(45deg, #3498db, #2980b9);
+                   color: white;
+                   border: none;
+                   padding: 10px 20px;
+                   border-radius: 8px;
+                   cursor: pointer;
+                   font-size: 14px;
+               ">닫기</button>
+           `;
+           
+           modal.appendChild(modalContent);
+           document.body.appendChild(modal);
+           
+           // 모달 외부 클릭시 닫기
+           modal.addEventListener('click', (e) => {
+               if (e.target === modal) {
+                   modal.remove();
+               }
+           });
+       }
+
+       // 페이지 로드 시 통계 데이터 복원
+       window.addEventListener('load', function() {
+           loadStatsFromURL();
+       });
    </script>
 </body>
 </html>
-
-
