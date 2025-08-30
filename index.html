@@ -1312,6 +1312,23 @@
        }
 
        function pullGacha() {
+           // 배경음악 재생 함수
+function playBGM() {
+    const bgm = document.getElementById('bgMusic');
+    if (bgm.paused) {
+        bgm.volume = 0.5; // 음량 (0 ~ 1)
+        bgm.play().catch(err => {
+            console.log("자동 재생 차단됨:", err);
+        });
+    }
+}
+
+// pullGacha 실행할 때 음악 시작되도록
+function pullGacha() {
+    playBGM();  // 버튼 클릭 시 배경음악 시작
+    ...
+}
+
            const gachaBox = document.getElementById('gachaBox');
            const pullButton = document.getElementById('pullButton');
            const resultContainer = document.getElementById('resultContainer');
@@ -1481,3 +1498,4 @@
    </script>
 </body>
 </html>
+
